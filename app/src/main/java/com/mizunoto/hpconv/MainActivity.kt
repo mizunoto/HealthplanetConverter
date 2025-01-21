@@ -1,5 +1,7 @@
 package com.mizunoto.hpconv
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
@@ -22,7 +24,19 @@ class MainActivity : AppCompatActivity() {
 
         val codeTitle: TextView = findViewById(R.id.codeTitle)
         codeTitle.setOnClickListener {
-            Toast.makeText(this, "${codeTitle.text} clicked", Toast.LENGTH_SHORT).show()
+            val codeUrl =
+                "https://www.healthplanet.jp/oauth/auth.do?client_id=27569.kHm3xLBeVA.apps.healthplanet.jp&redirect_uri=https://www.healthplanet.jp/success.html&scope=innerscan&response_type=code"
+            var https = ""
+
+            if (!codeUrl.startsWith("http://") && !codeUrl.startsWith("https://")) {
+                https = "https://"
+            }
+
+            val intent = Intent(Intent.ACTION_VIEW).apply {
+                data = Uri.parse(https + codeUrl)
+            }
+
+            startActivity(intent)
         }
     }
 }
