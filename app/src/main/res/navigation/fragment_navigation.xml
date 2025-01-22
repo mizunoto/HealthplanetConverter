@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragmentNavigation"
+    app:startDestination="@id/loadFragment">
+
+    <fragment
+        android:id="@+id/loadFragment"
+        android:name="com.mizunoto.hpconv.Load"
+        android:label="fragment_load"
+        tools:layout="@layout/fragment_load" />
+    <fragment
+        android:id="@+id/loadByDateFragment"
+        android:name="com.mizunoto.hpconv.LoadByDate"
+        android:label="fragment_load_by_date"
+        tools:layout="@layout/fragment_load_by_date" />
+    <fragment
+        android:id="@+id/getTokenFragment"
+        android:name="com.mizunoto.hpconv.GetToken"
+        android:label="fragment_get_token"
+        tools:layout="@layout/fragment_get_token" />
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.mizunoto.hpconv.Settings"
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_settings" />
+</navigation>

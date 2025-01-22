@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/loadFragment"
+        android:checkable="false"
+        android:icon="@drawable/login"
+        android:title="読み込み" />
+    <item
+        android:id="@+id/loadByDateFragment"
+        android:icon="@drawable/calendar"
+        android:title="日付指定読み込み" />
+    <item
+        android:id="@+id/getTokenFragment"
+        android:icon="@drawable/key"
+        android:title="トークン再取得" />
+    <item
+        android:id="@+id/settingsFragment"
+        android:icon="@drawable/settings"
+        android:title="API設定" />
+</menu>
