@@ -31,7 +31,7 @@
                 android:textSize="24sp" />
 
             <CalendarView
-                android:id="@+id/calendarView"
+                android:id="@+id/fromInput"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1" />
@@ -51,7 +51,7 @@
                 android:textSize="24sp" />
 
             <CalendarView
-                android:id="@+id/calendarView2"
+                android:id="@+id/toInput"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1" />

@@ -8,21 +8,21 @@
     <fragment
         android:id="@+id/loadFragment"
         android:name="com.mizunoto.hpconv.Load"
-        android:label="fragment_load"
+        android:label="@string/load_title"
         tools:layout="@layout/fragment_load" />
     <fragment
         android:id="@+id/loadByDateFragment"
         android:name="com.mizunoto.hpconv.LoadByDate"
-        android:label="fragment_load_by_date"
+        android:label="@string/load_by_date_title"
         tools:layout="@layout/fragment_load_by_date" />
     <fragment
         android:id="@+id/getTokenFragment"
         android:name="com.mizunoto.hpconv.GetToken"
-        android:label="fragment_get_token"
+        android:label="@string/get_token_title"
         tools:layout="@layout/fragment_get_token" />
     <fragment
         android:id="@+id/settingsFragment"
         android:name="com.mizunoto.hpconv.Settings"
-        android:label="fragment_settings"
+        android:label="@string/settings_title"
         tools:layout="@layout/fragment_settings" />
 </navigation>

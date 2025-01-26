@@ -1,10 +1,14 @@
 package com.mizunoto.hpconv
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import androidx.fragment.app.Fragment
+import kotlinx.coroutines.runBlocking
+import java.time.Instant
+import java.time.temporal.ChronoUnit
 
 /**
  * A simple [Fragment] subclass.
@@ -19,6 +23,38 @@ class Load : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_load, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val context = view.context
+        val loadBtn = requireView().findViewById<Button>(R.id.loadBtn)
+
+        loadBtn.setOnClickListener {
+            val lastLoad = getLong(context, Save.LAST_LOAD.key)
+            lateinit var from: Instant
+            if (lastLoad == 0L) {
+                createDialog(
+                    context,
+                    "前回の記録がありません。",
+                    "30日前からの記録を取得します。"
+                ).show()
+                from = Instant.now().minus(30, ChronoUnit.DAYS);
+            } else {
+                from = Instant.ofEpochMilli(lastLoad)
+            }
+            val to = Instant.now()
+            val data = loadAPI(context, from, to)
+            runBlocking {
+                if (writeData(context, data)) {
+                    showToast(context, "記録を更新しました。", ToastLength.SHORT)
+                    saveValue(context, Save.LAST_LOAD.key, to.toEpochMilli())
+                } else {
+                    showToast(context, "更新する記録がありません。", ToastLength.SHORT)
+                }
+            }
+        }
+
     }
 
     companion object {

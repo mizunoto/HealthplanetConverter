@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="code_intent">code を取得する</string>
+    <string name="code">code をコピーして貼り付けてください</string>
+    <string name="get_token">送信</string>
+</resources>

@@ -19,46 +19,50 @@
             android:id="@+id/clientIdTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Client ID"
+            android:text="@string/client_id"
             android:textSize="20sp" />
 
         <EditText
-            android:id="@+id/clientId"
+            android:id="@+id/clientIdInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_toEndOf="@id/clientSecretTitle"
+            android:autofillHints="@string/client_id"
             android:ems="10"
-            android:hint="Client ID"
+            android:hint="@string/client_id"
             android:inputType="text|textNoSuggestions"
-            android:textSize="24sp" />
+            android:textSize="24sp"
+            tools:ignore="DuplicateSpeakableTextCheck" />
 
         <TextView
             android:id="@+id/clientSecretTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/clientId"
-            android:text="Client Secret"
+            android:layout_below="@id/clientIdInput"
+            android:text="@string/client_secret"
             android:textSize="20sp" />
 
         <EditText
-            android:id="@+id/clientSecret"
+            android:id="@+id/clientSecretInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/clientId"
+            android:layout_below="@id/clientIdInput"
             android:layout_toEndOf="@id/clientSecretTitle"
+            android:autofillHints="@string/client_secret"
             android:ems="10"
-            android:hint="Client Secret"
+            android:hint="@string/client_secret"
             android:inputType="text|textNoSuggestions"
-            android:textSize="24sp" />
+            android:textSize="24sp"
+            tools:ignore="DuplicateSpeakableTextCheck" />
 
         <Button
             android:id="@+id/saveSettings"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/clientSecret"
+            android:layout_below="@id/clientSecretInput"
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="0dp"
-            android:text="保存"
+            android:text="@string/save_settings"
             app:cornerRadius="0dp" />
     </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="load_title">読み込み</string>
+    <string name="load_by_date_title">日付指定読み込み</string>
+    <string name="get_token_title">Token取得</string>
+    <string name="settings_title">API設定</string>
+</resources>

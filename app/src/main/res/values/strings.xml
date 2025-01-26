@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Healthplanet Converter</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!--placeholder text -->
+    <string name="placeholder_text">Hello World</string>
     <!-- Preference Titles -->
     <string name="messages_header">Messages</string>
     <string name="sync_header">Sync</string>

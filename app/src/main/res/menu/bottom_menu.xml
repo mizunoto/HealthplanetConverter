@@ -5,17 +5,17 @@
         android:id="@+id/loadFragment"
         android:checkable="false"
         android:icon="@drawable/login"
-        android:title="読み込み" />
+        android:title="@string/load_title" />
     <item
         android:id="@+id/loadByDateFragment"
         android:icon="@drawable/calendar"
-        android:title="日付指定読み込み" />
+        android:title="@string/load_by_date_title" />
     <item
         android:id="@+id/getTokenFragment"
         android:icon="@drawable/key"
-        android:title="トークン再取得" />
+        android:title="@string/get_token_title" />
     <item
         android:id="@+id/settingsFragment"
         android:icon="@drawable/settings"
-        android:title="API設定" />
+        android:title="@string/settings_title" />
 </menu>
