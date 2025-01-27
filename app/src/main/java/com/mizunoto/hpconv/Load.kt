@@ -9,6 +9,7 @@ import android.widget.Button
 import androidx.fragment.app.Fragment
 import kotlinx.coroutines.runBlocking
 import java.time.Instant
+import java.time.ZoneId
 import java.time.temporal.ChronoUnit
 
 /**
@@ -52,7 +53,7 @@ class Load : Fragment() {
                 } else {
                     showToast(
                         context,
-                        "更新する記録がありません。\n最終更新日:$from",
+                        "更新する記録がありません。\n最終更新日:${from.atZone(ZoneId.systemDefault())}",
                         ToastLength.SHORT
                     )
                 }
