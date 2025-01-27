@@ -32,14 +32,13 @@ class Load : Fragment() {
 
         loadBtn.setOnClickListener {
             val lastLoad = getLong(context, Save.LAST_LOAD.key)
-            lateinit var from: Instant
+            var from = Instant.now().minus(30, ChronoUnit.DAYS)
             if (lastLoad == 0L) {
                 createDialog(
                     context,
                     "前回の記録がありません。",
                     "30日前からの記録を取得します。"
                 ).show()
-                from = Instant.now().minus(30, ChronoUnit.DAYS);
             } else {
                 from = Instant.ofEpochMilli(lastLoad)
             }

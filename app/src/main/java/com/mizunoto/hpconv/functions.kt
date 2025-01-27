@@ -59,7 +59,7 @@ fun showToast(
 ) {
     Log.d("showToast", "context:$context, text:$text, length:$length")
     val toastLength: Int =
-        if (length == ToastLength.SHORT) {
+        if (length == SHORT) {
             Toast.LENGTH_SHORT
         } else {
             Toast.LENGTH_LONG
@@ -141,20 +141,14 @@ fun getLong(context: Context, key: String): Long {
 }
 
 /**
- * JSONArrayのコピー
- * @param array コピー元
- * @return コピー先
+ * APIの呼び出し
+ * @param context Context
+ * @param from 開始日
+ * @param to 終了日
+ * @return APIのレスポンス
  */
-fun copyJSONArray(array: JSONArray): JSONArray {
-    val rtn = JSONArray()
-    for (i in 0 until array.length()) {
-        rtn.put(array.get(i))
-    }
-    return rtn
-}
-
 fun loadAPI(context: Context, from: Instant, to: Instant): JSONArray {
-    var token = getToken(context)
+    val token = getToken(context)
     val tokenExpiresIn = getLong(context, Save.TOKEN_EXPIRES_IN.key)
     if (tokenExpiresIn < Instant.now().toEpochMilli()) {
         createDialog(
@@ -162,19 +156,19 @@ fun loadAPI(context: Context, from: Instant, to: Instant): JSONArray {
             "tokenの期限が切れています。",
             "tokenを再取得してください。"
         ).show()
-        token = getString(context, "refresh_token")
     }
-    lateinit var dataArray: JSONArray
+    val dataArray = JSONArray()
+
     val thread = Thread {
         var fromEpochMilli = from.toEpochMilli()
         var toEpochMilli: Long
-        // 90日間隔で処理を行う
+        // 60日間隔で処理を行う
         do {
             toEpochMilli = fromEpochMilli + 90L * 24 * 60 * 60 * 1000
             if (toEpochMilli > to.toEpochMilli()) toEpochMilli = to.toEpochMilli()
             val url = makeUri(
                 "status/innerscan.json", mapOf(
-                    "access_token" to token.toString(),
+                    "access_token" to token,
                     "date" to "1",
                     "from" to parseQueryDate(fromEpochMilli),
                     "to" to parseQueryDate(toEpochMilli),
@@ -191,7 +185,10 @@ fun loadAPI(context: Context, from: Instant, to: Instant): JSONArray {
                     val response = connection.inputStream.bufferedReader().readText()
                     Log.d("LoadByDate", response)
                     val json = JSONObject(response)
-                    dataArray = json.getJSONArray("data")
+                    for (i in 0 until json.getJSONArray("data").length()) {
+                        val data = json.getJSONArray("data").getJSONObject(i)
+                        dataArray.put(data)
+                    }
                 }
             } catch (e: IOException) {
                 Log.d("LoadByDate", "通信に失敗しました。$e")
@@ -234,7 +231,7 @@ suspend fun writeData(context: Context, dataJSONArray: JSONArray): Boolean {
     val insertBodyFat = client.insertRecords(bodyFatList.toList())
     Log.d("writeData", "insertWeight:${insertWeight.recordIdsList}")
     Log.d("writeData", "insertBodyFat:${insertBodyFat.recordIdsList}")
-    return insertWeight.recordIdsList.isNotEmpty() && insertBodyFat.recordIdsList.isNotEmpty()
+    return insertWeight.recordIdsList.isNotEmpty() || insertBodyFat.recordIdsList.isNotEmpty()
 }
 
 /**
@@ -299,9 +296,9 @@ fun parseDataDateToInstant(dataDate: String): Instant {
  * @param context Context
  * @return token or null
  */
-fun getToken(context: Context): String? {
+fun getToken(context: Context): String {
     val tokenExpiresIn = getLong(context, Save.TOKEN_EXPIRES_IN.key)
-    if (tokenExpiresIn < Instant.now().toEpochMilli()) {
-        return getString(context, Save.REFRESH_TOKEN.key)
-    } else return getString(context, Save.TOKEN.key)
+    return if (tokenExpiresIn < Instant.now().toEpochMilli()) {
+        getString(context, Save.REFRESH_TOKEN.key)
+    } else getString(context, Save.TOKEN.key)
 }

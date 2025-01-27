@@ -128,7 +128,14 @@ class GetToken : Fragment() {
             }
             getTokenThread.start()
             getTokenThread.join()
-
+            if (response == "SUCCESS") {
+                createDialog(
+                    context,
+                    "token取得エラー",
+                    "エラーが発生しました。\nコードの再取得を試してみてください。"
+                ).show()
+                return@setOnClickListener
+            }
             val json = JSONObject(response)
             if (json.has("error")) {
                 Log.d("token取得", "エラーが発生しました。")

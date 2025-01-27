@@ -92,15 +92,19 @@ class LoadByDate : Fragment() {
         }
 
         loadByDateBtn.setOnClickListener {
-            val context = view.context
-
             val from = Instant.ofEpochMilli(fromInput.date)
             val to = Instant.ofEpochMilli(toInput.date)
             Log.d("LoadByDate", "fromDate:$from, toDate:$to")
 
+            loadByDateBtn.isEnabled = false
             val data = loadAPI(requireContext(), from, to)
             runBlocking {
-                writeData(requireContext(), data)
+                if (writeData(requireContext(), data)) {
+                    showToast(requireContext(), "データの取得に成功しました。", ToastLength.SHORT)
+                } else {
+                    showToast(requireContext(), "データの取得に失敗しました。", ToastLength.SHORT)
+                }
+                loadByDateBtn.isEnabled = true
             }
         }
     }

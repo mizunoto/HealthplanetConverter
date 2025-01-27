@@ -7,6 +7,9 @@ import android.widget.Button
 import android.widget.EditText
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.health.connect.client.HealthConnectClient
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -24,11 +27,23 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val context = this
+        val insetsController = WindowCompat.getInsetsController(window, window.decorView)
+        insetsController.hide(WindowInsetsCompat.Type.systemBars())
+        insetsController.hide(WindowInsetsCompat.Type.navigationBars())
+
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.container)) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
+        }
+
         healthConnectClient = HealthConnectClient.getOrCreate(this)
 
         val permissions = setOf(
-            HealthPermissions.WRITE_WEIGHT, HealthPermissions.WRITE_BODY_FAT
+            android.Manifest.permission.INTERNET,
+            android.Manifest.permission.BODY_SENSORS,
+            HealthPermissions.WRITE_WEIGHT,
+            HealthPermissions.WRITE_BODY_FAT
         )
         val requestPermissions =
             registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { result ->
