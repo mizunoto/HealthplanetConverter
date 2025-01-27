@@ -147,7 +147,7 @@ fun getLong(context: Context, key: String): Long {
  * @param to 終了日
  * @return APIのレスポンス
  */
-fun loadAPI(context: Context, from: Instant, to: Instant): JSONArray {
+fun loadAPI(context: Context, from: Instant, to: Instant = Instant.now()): JSONArray {
     val token = getToken(context)
     val tokenExpiresIn = getLong(context, Save.TOKEN_EXPIRES_IN.key)
     if (tokenExpiresIn < Instant.now().toEpochMilli()) {
@@ -212,6 +212,7 @@ fun loadAPI(context: Context, from: Instant, to: Instant): JSONArray {
  * @return 書き込み内容の有無
  */
 suspend fun writeData(context: Context, dataJSONArray: JSONArray): Boolean {
+    Log.d("writeData", "dataJSONArray:$dataJSONArray")
     val client = HealthConnectClient.getOrCreate(context)
     val weightList = mutableListOf<WeightRecord>()
     val bodyFatList = mutableListOf<BodyFatRecord>()

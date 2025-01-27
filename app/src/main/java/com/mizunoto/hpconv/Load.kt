@@ -1,6 +1,7 @@
 package com.mizunoto.hpconv
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -42,14 +43,18 @@ class Load : Fragment() {
             } else {
                 from = Instant.ofEpochMilli(lastLoad)
             }
-            val to = Instant.now()
-            val data = loadAPI(context, from, to)
+            val data = loadAPI(context, from)
+            Log.d("Load", data.toString());
             runBlocking {
                 if (writeData(context, data)) {
                     showToast(context, "記録を更新しました。", ToastLength.SHORT)
-                    saveValue(context, Save.LAST_LOAD.key, to.toEpochMilli())
+                    saveValue(context, Save.LAST_LOAD.key, Instant.now().toEpochMilli())
                 } else {
-                    showToast(context, "更新する記録がありません。", ToastLength.SHORT)
+                    showToast(
+                        context,
+                        "更新する記録がありません。\n最終更新日:$from",
+                        ToastLength.SHORT
+                    )
                 }
             }
         }
