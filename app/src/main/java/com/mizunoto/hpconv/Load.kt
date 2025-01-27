@@ -45,7 +45,7 @@ class Load : Fragment() {
                 from = Instant.ofEpochMilli(lastLoad)
             }
             val data = loadAPI(context, from)
-            Log.d("Load", data.toString());
+            Log.d("Load", data.toString())
             runBlocking {
                 if (writeData(context, data)) {
                     showToast(context, "記録を更新しました。", ToastLength.SHORT)
