@@ -25,7 +25,7 @@ Android 14以降<br>
 
 ### HealthplanetのAPIを取得する
 
-参考：[GAS を使って TANITA HealthPlanet のデータを GoogleFit に自動連携してみた - Qiita](https://qiita.com/potstickers/items/8fa8dce3e31efcde078a#healthplanet-api-%E3%81%AE%E6%BA%96%E5%82%99)<br>
+参考：[タニタの Health Planet API を使用して測定情報を取得する](https://zenn.dev/kou_pg_0131/articles/tanita-health-planet-api)<br>
 上の指示に従えばAPIを取れるはずです。GASやGoogleFitは無視してかまいません。
 
 ### Client ID、Client secretの保存
